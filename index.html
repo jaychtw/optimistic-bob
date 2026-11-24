@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#193e39"><title>Optimistic Bob · Unit OB-3000</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5eedf;color:#203a34;font:16px/1.5 system-ui,sans-serif}main,header,footer{width:min(1050px,92%);margin:auto}header,footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0;border-bottom:1px solid #aaa391}header strong,small,.plate,label,legend{font:700 .78rem/1.5 ui-monospace,monospace;letter-spacing:.08em}button,input,select,textarea{font:inherit}button,select{cursor:pointer;color:inherit;background:#fbf6ea;border:1px solid #7b8879;border-radius:5px;padding:.5rem .8rem}button[aria-pressed=true]{background:#23463f;color:white}button:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #158597;outline-offset:3px}button:disabled{opacity:.6}h1{font:900 clamp(2.5rem,7vw,6rem)/.98 Georgia,serif;letter-spacing:-.06em;margin:1.8rem 0 .5rem}.sub{margin:0 0 1.4rem;color:#52635a}.console{display:grid;grid-template-columns: .9fr 1.1fr;border:2px solid #25463f;border-radius:14px;overflow:hidden;box-shadow:0 6px #bbb49e;background:#fff9eb}.stage{position:relative;background:radial-gradient(ellipse,#418074,#20443e 75%);display:grid;place-items:center;min-height:360px;color:#fff6d9;padding:1.2rem}.stage svg{width:min(75%,315px);max-height:365px;filter:drop-shadow(0 10px 8px #102c2955)}.plate{position:absolute;left:1rem;bottom:1rem}.panel{padding:clamp(1.2rem,3.2vw,2.4rem)}.screen{background:#182e2a;color:#e3f0cd;padding:1rem 1.25rem;border-radius:7px;min-height:7.8rem;border:4px solid #8d9480}.screen p{margin:.4rem 0;overflow-wrap:anywhere}.screen small{color:#9dccae}.safety .screen{background:#fff;color:#253a33;border-color:#c5cec4}.safety .screen small{color:#41594c}.field{margin-top:1rem}label{display:block;margin-bottom:.35rem}textarea,select{width:100%;background:#fffdf5;border:1px solid #899589;border-radius:5px;padding:.65rem;color:#1c3831}textarea{resize:vertical;min-height:4.3rem}.actions{display:flex;gap:.6rem}.launch{flex:1;background:#f4b74b;color:#24382f;font-weight:800}.hidden,[hidden]{display:none!important}footer{font-size:.82rem;border:0;color:#586359}.talk #equalizerBars rect{transform-box:fill-box;transform-origin:bottom;animation:eq .32s infinite alternate}.talk #equalizerBars rect:nth-child(even){animation-delay:-.19s}.processing #antennaBulb{animation:eq .5s infinite alternate}.malfunction #robotHead{transform:rotate(5deg);transform-origin:150px 110px}.hype #leftArm{transform:rotate(45deg);transform-origin:100px 175px}.hype #rightArm{transform:rotate(-45deg);transform-origin:200px 175px}@keyframes eq{to{transform:scaleY(.28);opacity:.55}}@media(max-width:680px){.console{grid-template-columns:1fr}.stage{min-height:220px}.stage svg{height:210px}header{flex-wrap:wrap}h1{margin-top:1.2rem}}@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body><header><strong>UNIT OB-3000</strong><div><button id="en" lang="en">EN</button> | <button id="zh" lang="zh-TW">繁</button> <button id="mute"></button></div></header>
+<main><h1 id="title"></h1><p id="sub" class="sub"></p><div class="console"><div class="stage" aria-hidden="true"><svg id="ob3000Svg" class="w-full h-full bob-hover transition-all duration-300 drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Linear & Radial Gradients for 1950s Retro Shading -->
+                        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#14b8a6"/>
+                            <stop offset="100%" stop-color="#0f766e"/>
+                        </linearGradient>
+                        <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#fde047"/>
+                            <stop offset="100%" stop-color="#eab308"/>
+                        </linearGradient>
+                        <linearGradient id="crtGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#1e293b"/>
+                            <stop offset="100%" stop-color="#0f172a"/>
+                        </linearGradient>
+                        <linearGradient id="metalArm" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#94a3b8"/>
+                            <stop offset="50%" stop-color="#cbd5e1"/>
+                            <stop offset="100%" stop-color="#64748b"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- UNICYCLE WHEEL & SPRING SUSPENSION -->
+                    <g id="robotBase">
+                        <!-- Lower Spring -->
+                        <path d="M150,270 Q140,280 150,290 T150,310 T150,325" fill="none" stroke="#64748b" stroke-width="6" stroke-linecap="round"/>
+                        <!-- Wheel Fork -->
+                        <path d="M135,315 L150,325 L165,315" fill="none" stroke="#475569" stroke-width="5"/>
+                        <!-- Rubber Tire -->
+                        <circle cx="150" cy="332" r="20" fill="#1e293b" stroke="#0f172a" stroke-width="4"/>
+                        <circle cx="150" cy="332" r="10" fill="#facc15" stroke="#0f172a" stroke-width="2"/>
+                        <circle cx="150" cy="332" r="4" fill="#0f172a"/>
+                    </g>
+
+                    <!-- LEFT ARM (Viewer's Left) -->
+                    <g id="leftArm" class="transition-all duration-500 origin-[100px_170px]">
+                        <!-- Default Idle: resting down -->
+                        <path id="leftArmPath" d="M100,175 C70,185 60,210 65,235" fill="none" stroke="url(#metalArm)" stroke-width="14" stroke-linecap="round"/>
+                        <!-- Glove / Hand Left -->
+                        <path id="leftHand" d="M55,235 C50,245 70,255 75,245 C80,235 60,225 55,235" fill="#facc15" stroke="#0f172a" stroke-width="3"/>
+                    </g>
+
+                    <!-- RIGHT ARM (Viewer's Right) -->
+                    <g id="rightArm" class="transition-all duration-500 origin-[200px_170px]">
+                        <!-- Default Idle: resting down -->
+                        <path id="rightArmPath" d="M200,175 C230,185 240,210 235,235" fill="none" stroke="url(#metalArm)" stroke-width="14" stroke-linecap="round"/>
+                        <!-- Glove / Hand Right -->
+                        <path id="rightHand" d="M245,235 C250,245 230,255 225,245 C220,235 240,225 245,235" fill="#facc15" stroke="#0f172a" stroke-width="3"/>
+                    </g>
+
+                    <!-- MAIN TORSO -->
+                    <g id="robotBody">
+                        <!-- Main Chassis Box -->
+                        <rect x="90" y="140" width="120" height="130" rx="16" fill="url(#bodyGrad)" stroke="#0f172a" stroke-width="5"/>
+                        
+                        <!-- Yellow Front Chest Plate -->
+                        <rect x="102" y="152" width="96" height="106" rx="10" fill="url(#yellowGrad)" stroke="#0f172a" stroke-width="3"/>
+
+                        <!-- Hazard Stripe Accent Bar -->
+                        <g clip-path="url(#hazardClip)">
+                            <clipPath id="hazardClip">
+                                <rect x="106" y="234" width="88" height="18" rx="4"/>
+                            </clipPath>
+                            <rect x="100" y="230" width="100" height="25" class="hazard-stripes"/>
+                        </g>
+
+                        <!-- HYPE LEVEL ANALOG GAUGE -->
+                        <g id="hypeGauge" transform="translate(110, 162)">
+                            <!-- Dial Outer Frame -->
+                            <rect x="0" y="0" width="80" height="48" rx="8" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                            <!-- Dial Face -->
+                            <path d="M10,40 A35,35 0 0,1 70,40 Z" fill="#f8fafc"/>
+                            
+                            <!-- Color Zones on Dial: Green (left), Yellow (mid), Red (max) -->
+                            <path d="M15,38 A30,30 0 0,1 32,18" fill="none" stroke="#22c55e" stroke-width="5"/>
+                            <path d="M32,18 A30,30 0 0,1 52,18" fill="none" stroke="#eab308" stroke-width="5"/>
+                            <path d="M52,18 A30,30 0 0,1 68,38" fill="none" stroke="#ef4444" stroke-width="5"/>
+
+                            <!-- Gauge Label -->
+                            <text x="40" y="44" text-anchor="middle" font-family="monospace" font-size="6" font-weight="bold" fill="#94a3b8">HYPE LEVEL</text>
+                            
+                            <!-- ROTATING NEEDLE -->
+                            <!-- Needle Pivot at (40, 40). Rotation angles: Idle ~20deg, Processing ~70deg, Hype ~140deg, Glitch ~-30deg/twitch -->
+                            <g id="needleGroup" class="gauge-needle" style="transform: rotate(20deg); transform-origin: 40px 40px;">
+                                <polygon points="38,40 42,40 40,12" fill="#ef4444"/>
+                                <circle cx="40" cy="40" r="4" fill="#0f172a"/>
+                            </g>
+                        </g>
+
+                        <!-- Chest Indicator Lights & Toggle Switches -->
+                        <circle cx="120" cy="222" r="4" fill="#ef4444" stroke="#0f172a" stroke-width="1.5"/>
+                        <circle cx="132" cy="222" r="4" fill="#38bdf8" stroke="#0f172a" stroke-width="1.5"/>
+                        <rect x="160" y="218" width="12" height="8" rx="2" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+                        <line x1="166" y1="218" x2="166" y2="223" stroke="#facc15" stroke-width="2"/>
+                    </g>
+
+                    <!-- NECK SPRING -->
+                    <g id="robotNeck">
+                        <path d="M135,130 Q150,125 165,130 M135,136 Q150,131 165,136" fill="none" stroke="#475569" stroke-width="4"/>
+                    </g>
+
+                    <!-- CRT MONITOR HEAD & ANTENNA -->
+                    <g id="robotHead">
+                        <!-- RADAR DISH EARS -->
+                        <!-- Left Ear Dish -->
+                        <path d="M72,75 C60,65 60,95 72,85" fill="#94a3b8" stroke="#0f172a" stroke-width="3"/>
+                        <line x1="72" y1="80" x2="85" y2="80" stroke="#0f172a" stroke-width="3"/>
+                        
+                        <!-- Right Ear Dish -->
+                        <path d="M228,75 C240,65 240,95 228,85" fill="#94a3b8" stroke="#0f172a" stroke-width="3"/>
+                        <line x1="228" y1="80" x2="215" y2="80" stroke="#0f172a" stroke-width="3"/>
+
+                        <!-- ANTENNA -->
+                        <path id="antennaCoil" d="M150,45 Q143,35 150,28 T150,15" fill="none" stroke="#64748b" stroke-width="4"/>
+                        <!-- Antenna Light Bulb at Top (150, 10) -->
+                        <circle id="antennaBulb" cx="150" cy="10" r="8" fill="#facc15" stroke="#0f172a" stroke-width="2" class="drop-shadow-[0_0_8px_#facc15]"/>
+
+                        <!-- CRT Head Outer Shell -->
+                        <rect x="80" y="45" width="140" height="90" rx="18" fill="url(#bodyGrad)" stroke="#0f172a" stroke-width="5"/>
+                        
+                        <!-- Inner Bezel -->
+                        <rect x="92" y="55" width="116" height="70" rx="12" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+                        
+                        <!-- CRT Screen Glass -->
+                        <rect x="98" y="60" width="104" height="60" rx="8" fill="url(#crtGrad)" stroke="#0f172a" stroke-width="2"/>
+
+                        <!-- CRT DISPLAY CONTENTS BY STATE -->
+                        <g id="crtDisplay">
+                            
+                            <!-- STATE 1: IDLE DISPLAY (Cyan pixel eyes + smile) -->
+                            <g id="screenIdle" class="block">
+                                <!-- Eye Left -->
+                                <rect x="116" y="76" width="14" height="14" rx="2" fill="#38bdf8"/>
+                                <!-- Eye Right -->
+                                <rect x="170" y="76" width="14" height="14" rx="2" fill="#38bdf8"/>
+                                <!-- Pixel Smile -->
+                                <path d="M126,104 L174,104" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+                            </g>
+
+                            <!-- STATE 2: PROCESSING DISPLAY (Spinning Loader dots) -->
+                            <g id="screenProcessing" class="hidden">
+                                <text x="150" y="88" text-anchor="middle" font-family="monospace" font-size="12" fill="#facc15" font-weight="bold">THINKING...</text>
+                                <!-- Animated dots indicator -->
+                                <g transform="translate(130, 96)">
+                                    <circle cx="0" cy="0" r="4" fill="#38bdf8" class="animate-ping"/>
+                                    <circle cx="20" cy="0" r="4" fill="#38bdf8" class="animate-ping delay-100"/>
+                                    <circle cx="40" cy="0" r="4" fill="#38bdf8" class="animate-ping delay-200"/>
+                                </g>
+                            </g>
+
+                            <!-- STATE 3: HYPE BURST DISPLAY (Star Eyes + Equalizer Bars) -->
+                            <g id="screenHype" class="hidden">
+                                <!-- Left Star Eye <* -->
+                                <text x="122" y="86" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#facc15">★</text>
+                                <!-- Right Star Eye *> -->
+                                <text x="178" y="86" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#facc15">★</text>
+                                
+                                <!-- Bouncing Cyan Equalizer Audio Bars at Bottom of Screen -->
+                                <g id="equalizerBars" transform="translate(0 110)">
+                                    <rect x="112" y="-18" width="6" height="16" fill="#38bdf8" class="eq-1"/>
+                                    <rect x="126" y="-18" width="6" height="16" fill="#38bdf8" class="eq-2"/>
+                                    <rect x="140" y="-18" width="6" height="16" fill="#38bdf8" class="eq-3"/>
+                                    <rect x="154" y="-18" width="6" height="16" fill="#38bdf8" class="eq-4"/>
+                                    <rect x="168" y="-18" width="6" height="16" fill="#38bdf8" class="eq-5"/>
+                                    <rect x="182" y="-18" width="6" height="16" fill="#38bdf8" class="eq-1"/>
+                                </g>
+                            </g>
+
+                            <!-- STATE 4: MALFUNCTION DISPLAY (Mismatched X and spiral O + glitch line) -->
+                            <g id="screenMalfunction" class="hidden">
+                                <!-- Eye Left X -->
+                                <text x="120" y="88" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#ef4444">✕</text>
+                                <!-- Eye Right Spiral O -->
+                                <text x="180" y="88" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#ef4444">◎</text>
+                                <!-- Jagged Teeth Mouth -->
+                                <path d="M120,104 L130,98 L140,106 L150,98 L160,106 L170,98 L180,104" fill="none" stroke="#ef4444" stroke-width="3"/>
+                            </g>
+                        </g>
+
+                        <!-- Knob Details on Head Frame -->
+                        <circle cx="208" cy="70" r="3" fill="#0f172a"/>
+                        <circle cx="208" cy="80" r="3" fill="#0f172a"/>
+                    </g>
+                </svg><span class="plate">OB · 3000</span></div><div class="panel"><section class="screen" role="status" aria-live="polite" aria-atomic="true"><small id="state"></small><p id="reply"></p></section><form id="form"><div class="field"><label id="modeLabel" for="mode"></label><select id="mode"></select></div><div class="field"><label id="messageLabel" for="message"></label><textarea id="message" maxlength="280" required></textarea></div><div class="actions"><button class="launch" id="submit"></button><button type="button" id="mic" hidden></button></div></form></div></div></main><footer id="disclaimer"></footer><script>
+const copy={"en":{"title":"OPTIMISTIC BOB","sub":"UNIT OB-3000 // MORALE OVERCLOCKING ENGINE","disclaimer":"Comedy toy only. OB-3000 is a satire bot, not a therapist or advisor.","label":"One tiny thing you did","placeholder":"Tell OB-3000 one tiny thing you did...","mode":"Hype mode","modes":["Mildly Delusional","Corporate Keynote","Unstable Megaphone"],"submit":"Tell Bob","mute":"Mute","unmute":"Unmute","mic":"Dictate","stop":"Stop dictation","ready":"Standing by for a historic household event.","states":["Idle","Processing","Hype burst","Malfunction","Safety circuit"],"beat":"Calculating logistical magnitude…","safety":"OB-3000 is just a comedy bot and isn't equipped for this. If you're going through something heavy, please reach out to someone you trust or a local crisis helpline."},"zh-TW":{"title":"樂觀鮑伯","sub":"OB-3000 型 // 士氣超頻引擎","disclaimer":"純屬喜劇互動玩具。OB-3000 是諷刺機器人，並非心理諮商或專業顧問。","label":"你剛完成的小事","placeholder":"告訴 OB-3000 你剛完成的一件小事……","mode":"士氣模式","modes":["輕度妄想","企業發表會","失控大聲公"],"submit":"告訴鮑伯","mute":"靜音","unmute":"開啟音效","mic":"語音輸入","stop":"停止聆聽","ready":"待命中。今天哪件家務值得寫進歷史？","states":["待命","運算中","士氣爆發","機件故障","安全模式"],"beat":"正在估算這項壯舉的歷史意義……","safety":"OB-3000 只是喜劇機器人，無法處理這類沉重的狀況。如果你正處於低潮，請聯繫信任的親友或當地的心理支持專線（台灣可撥打 1925 安心專線）。"}};
+const crisis = /suicid|self[\s-]?harm|(?:hurt|harm|kill|cut|end) (?:myself|my life)|(?:want|wish) (?:to die|i were dead)|(?:don['’]?t|do not) want to (?:live|be (?:here|alive))|can['’]?t (?:go on|keep (?:going|myself safe))|depress(?:ed|ion)|in (?:a )?crisis|想死|自[殺殘傷]|輕生|不想活|活不下去|傷害自己|結束生命|憂鬱|抑鬱|撐不下去/i;
+const advice = /(?:write|debug|generate|fix|寫|除錯).{0,25}(?:code|script|function|程式)|solve|calculate|(?:what|how much) is|\d\s*[-+*/×÷]\s*\d|(?:should i|can you|how (?:do|can) i).*(?:invest|stock|medicine|medication|sue|diagnos|legal|tax)|(?:medical|legal|financial) advice|^(?:who|what|when|where|why|how)\b|解題|計算|多少|是誰|什麼是|怎麼(?:治|投資)|診斷|法律建議|該買|首都|幫我寫/i;
+const modes = ['delusional','keynote','megaphone'];
+const bank = {
+ en: [
+ ['The museum has cleared a shelf for “§”. The curator is hunting for a velvet cushion.','“§” made the history books. The index now jumps straight from steam power to your kitchen.'],
+ ['Our entire quarterly strategy now fits on one slide: “§”. The board has voted to make the slide larger.','“§” is our flagship achievement. Accounting has approved one ceremonial paper clip.'],
+ ['STOP THE PRESSES! “§” has knocked the moon landing off page one.','SOUND THE BRASS! “§” just earned a medal so heavy my podium needs reinforcing.']],
+ 'zh-TW':[
+ ['博物館為「§」騰出了一座展櫃。館長正跪在地上量紅毯。','「§」正式載入史冊。排版師只好把工業革命往後挪一頁。'],
+ ['本季最重要的投影片只有「§」這一行。董事會一致決議把字放大三倍。','「§」成了年度績效亮點。財務部剛核准一枚紀念迴紋針。'],
+ ['號外！「§」把登月新聞擠到第二版了！','樂隊，起立！「§」榮獲金牌，頒獎台已經被壓歪了！']]
+};
+function fallback(message,lang,mode) {
+ const zh = lang === 'zh-TW';
+ if (crisis.test(message)) return {state:'safety',processingLine:'',response:copy[lang].safety};
+ const phrase = message.trim().replace(/^(?:i (?:just )?|我剛剛|我剛才|我剛)/i,'').replace(/[.!?。！？]+$/,'') || message;
+ if (advice.test(message)) return {state:'malfunction',processingLine:zh?'運算齒輪打滑':'Calculation gears slipping',response:zh?'「'+phrase+'」讓我的算盤冒煙了。我只會頒獎，光是打出這道題的手勢就值得一座獎盃！':'“'+phrase+'” just melted my abacus. I can only award trophies, and your typing posture deserves the big one!'};
+ const choices=bank[lang][modes.indexOf(mode)];
+ return {state:'hype',processingLine:zh?'歷史定位完成':'Historical significance confirmed',response:choices[Math.floor(Math.random()*choices.length)].replace('§',()=>phrase)};
+}
+const $=id=>document.getElementById(id);
+const speech=window.speechSynthesis;
+const Recognition=window.SpeechRecognition || window.webkitSpeechRecognition;
+let lang='en', mode='megaphone', state='idle', muted=false, turn=0, context, thinking, utterance, listening;
+try { if(localStorage.getItem('ob3000_lang')==='zh-TW') lang='zh-TW'; } catch {}
+function silence() {
+ clearInterval(thinking);
+ utterance=null;
+ speech?.cancel();
+ document.body.classList.remove('talk');
+}
+function tone(freq,when=0,shape='triangle',end=freq) {
+ if(muted || !context || context.state!=='running') return;
+ const o=context.createOscillator(), g=context.createGain(), t=context.currentTime+when;
+ o.type=shape; o.frequency.setValueAtTime(freq,t); o.frequency.exponentialRampToValueAtTime(end,t+.15);
+ g.gain.setValueAtTime(.001,t); g.gain.linearRampToValueAtTime(.045,t+.01); g.gain.exponentialRampToValueAtTime(.001,t+.16);
+ o.connect(g); g.connect(context.destination); o.start(t); o.stop(t+.17);
+}
+function armAudio(){
+ try{const Audio=window.AudioContext||window.webkitAudioContext;if(!muted && Audio){context??=new Audio();context.resume().catch(()=>{});}}catch{}
+}
+function speak(text) {
+ if(muted || !speech || !window.SpeechSynthesisUtterance) return;
+ const u=new SpeechSynthesisUtterance(text);
+ utterance=u; u.lang=lang==='en'?'en-US':'zh-TW';
+ u.voice=speech.getVoices().find(v=>v.lang.replace('_','-').toLowerCase()===u.lang.toLowerCase())||null;
+ u.pitch=state==='malfunction'?.75:lang==='en'?1.15:1.12;
+ u.rate=state==='malfunction'?.85:lang==='en'?1.08:1.05;
+ u.onstart=()=>{if(utterance===u)document.body.classList.add('talk')};
+ u.onend=u.onerror=()=>{if(utterance===u)document.body.classList.remove('talk')};
+ speech.speak(u);
+}
+function show(s,line,detail='') {
+ state=s; document.body.className=s;
+ const states=['idle','processing','hype','malfunction','safety'];
+ $('state').textContent=copy[lang].states[states.indexOf(s)]+(detail?' · '+detail:'');
+ $('reply').textContent=line;
+ for(const name of ['Idle','Processing','Hype','Malfunction'])
+   $('screen'+name).classList.toggle('hidden',name.toLowerCase()!==(s==='safety'?'idle':s));
+ $('screenProcessing').querySelector('text').textContent=lang==='en'?'THINKING…':'運算中…';
+ $('submit').disabled=$('mode').disabled=$('message').disabled=$('mic').disabled=s==='processing';
+}
+function language(next) {
+ turn++; silence(); listening?.abort(); lang=next;
+ try{localStorage.setItem('ob3000_lang',lang)}catch{}
+ const c=copy[lang]; document.documentElement.lang=lang;document.title=c.title+' · OB-3000';
+ for(const id of ['title','sub','disclaimer','submit']) $(id).textContent=c[id];
+ $('mute').textContent=muted?c.unmute:c.mute;
+ $('mic').textContent=c.mic; $('messageLabel').textContent=c.label;$('message').placeholder=c.placeholder;
+ $('modeLabel').textContent=c.mode;$('mode').replaceChildren(...modes.map((m,i)=>new Option(c.modes[i],m)));$('mode').value=mode;
+ $('en').setAttribute('aria-pressed',lang==='en');$('zh').setAttribute('aria-pressed',lang==='zh-TW');
+ show('idle',c.ready);
+}
+async function request(message,lang,hypeMode) {
+ const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),4000);
+ try{
+ const res=await fetch('/ob3000Respond',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,lang,hypeMode}),signal:controller.signal});
+ if(res.ok){const v=await res.json();if(['hype','malfunction','safety'].includes(v.state)&&typeof v.response==='string'&&v.response.trim()&&typeof v.processingLine==='string')return v;}
+ }catch{}finally{clearTimeout(timer)}
+ return fallback(message,lang,hypeMode);
+}
+$('form').onsubmit=async e=>{
+ e.preventDefault(); const message=$('message').value.trim();
+ if(!message||state==='processing')return;
+ const id=++turn;listening?.abort();silence();
+ if(crisis.test(message)){show('safety',copy[lang].safety);return}
+ armAudio();show('processing',copy[lang].beat);thinking=setInterval(()=>tone(440+Math.random()*420),180);
+ const [result]=await Promise.all([request(message,lang,mode),new Promise(resolve=>setTimeout(resolve,1100))]);
+ if(id!==turn)return;
+ clearInterval(thinking);
+ if(result.state==='safety'){show('safety',copy[lang].safety);return}
+ show(result.state,result.response,result.processingLine);
+ if(result.state==='hype')[392,494,587,784].forEach((n,i)=>tone(n,i*.08));else tone(280,0,'sawtooth',60);
+ speak(result.response);
+};
+$('mode').onchange=e=>{mode=e.target.value};
+$('en').onclick=()=>language('en');$('zh').onclick=()=>language('zh-TW');
+$('mute').onclick=()=>{muted=!muted;if(muted){silence();context?.suspend().catch(()=>{})}else armAudio();$('mute').textContent=muted?copy[lang].unmute:copy[lang].mute;};
+$('mic').hidden=!Recognition;
+$('mic').onclick=()=>{
+ if(listening){listening.stop();return}
+ const r=new Recognition();const locale=lang;r.lang=locale==='en'?'en-US':'zh-TW';listening=r;
+ r.onresult=e=>{if(locale===lang&&state!=='processing')$('message').value=e.results[0][0].transcript.slice(0,280)};
+ r.onend=r.onerror=()=>{if(listening===r){listening=null;$('mic').textContent=copy[lang].mic}};
+ try{r.start();$('mic').textContent=copy[lang].stop}catch{r.onend()}
+};
+language(lang);
+</script></body></html>
