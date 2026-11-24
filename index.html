@@ -201,11 +201,33 @@ const bank = {
  ['本季最重要的投影片只有「§」這一行。董事會一致決議把字放大三倍。','「§」成了年度績效亮點。財務部剛核准一枚紀念迴紋針。'],
  ['號外！「§」把登月新聞擠到第二版了！','樂隊，起立！「§」榮獲金牌，頒獎台已經被壓歪了！']]
 };
+const choreAwards = [
+ [/\b(?:garbage|rubbish|trash)\b|垃圾/i, 'sanitation medal', '環境衛生勳章'],
+ [/\b(?:dishes|plates?|mugs?|cups?)\b|碗|杯子|盤子/i, 'Order of the Gleaming Porcelain', '亮晶晶瓷器勳章'],
+ [/\b(?:laundry|socks?|towels?|shirts?)\b|衣服|襪子|毛巾/i, 'Golden Laundry Peg', '金衣夾獎'],
+ [/\b(?:bed|pillow|sheets?)\b|床單|枕頭|整理床/i, 'Grand Prize for Horizontal Architecture', '水平建築大獎'],
+ [/\b(?:plants?|flowers?|garden)\b|澆花|盆栽|植物/i, 'Botanical Peace Prize', '植物和平獎'],
+ [/\b(?:email|inbox|emails)\b|電子郵件|信箱|回信/i, 'Medal for Diplomatic Correspondence', '外交通信勳章']
+];
 function fallback(message,lang,mode) {
  const zh = lang === 'zh-TW';
  if (crisis.test(message)) return {state:'safety',processingLine:'',response:copy[lang].safety};
  const phrase = message.trim().replace(/^(?:i (?:just )?|我剛剛|我剛才|我剛)/i,'').replace(/[.!?。！？]+$/,'') || message;
  if (advice.test(message)) return {state:'malfunction',processingLine:zh?'運算齒輪打滑':'Calculation gears slipping',response:zh?'「'+phrase+'」讓我的算盤冒煙了。我只會頒獎，光是打出這道題的手勢就值得一座獎盃！':'“'+phrase+'” just melted my abacus. I can only award trophies, and your typing posture deserves the big one!'};
+ const award=choreAwards.find(([pattern])=>pattern.test(message));
+ if(award){
+   const prize=award[zh?2:1];
+   const lines=zh?[
+     '我把「'+phrase+'」送交評審了。他們連夜鑄了一枚「'+prize+'」，模子還燙手呢！',
+     '年度報告只剩「'+phrase+'」這一項。董事會決議把「'+prize+'」直接列入你的職稱。',
+     '快把紅毯鋪到門口！「'+phrase+'」拿下「'+prize+'」，銅管樂隊已經吹破兩支號角！'
+   ]:[
+     'I submitted “'+phrase+'” to the academy. Your '+prize+' is still warm from the foundry.',
+     'Our annual report now has one line: “'+phrase+'”. The board has added the '+prize+' to your job title.',
+     'ROLL OUT THE CARPET! “'+phrase+'” wins the '+prize+', and the brass section has blown out two trumpets!'
+   ];
+   return {state:'hype',processingLine:zh?'頒獎程序啟動':'Awards committee convened',response:lines[modes.indexOf(mode)]};
+ }
  const choices=bank[lang][modes.indexOf(mode)];
  return {state:'hype',processingLine:zh?'歷史定位完成':'Historical significance confirmed',response:choices[Math.floor(Math.random()*choices.length)].replace('§',()=>phrase)};
 }
